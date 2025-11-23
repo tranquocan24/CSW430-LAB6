@@ -38,8 +38,6 @@ api.interceptors.response.use(
     }
 );
 
-//API
-//Post
 export const login = async (phone, password) => {
     try {
         const response = await api.post('/auth', { phone, password });
@@ -72,6 +70,27 @@ export const getAllServices = async () => {
     }
 };
 
+export const getAllCustomer = async () => {
+    try {
+        const response = await api.get('/customers');
+        console.log(response);
+        return response;
+    } catch (error) {
+        console.error(error.message);
+        throw error;
+    }
+}
+
+export const getAllTransaction = async () => {
+    try {
+        const response = await api.get('/transactions');
+        console.log(response);
+        return response;
+    } catch (error) {
+        console.error(error.message)
+        throw error;
+    }
+}
 export const getAService = async (id) => {
     try {
         const respone = await api.get(`/services/${id}`);
@@ -83,6 +102,16 @@ export const getAService = async (id) => {
     }
 };
 
+export const getATransaction = async (id) => {
+    try {
+        const response = await api.get(`/transactions/${id}`);
+        console.log(response);
+        return response;
+    } catch (error) {
+        console.error(error.message);
+        throw error;
+    }
+}
 export const addAService = async (name, price) => {
     try {
         if (!name || !price) {
@@ -100,6 +129,21 @@ export const addAService = async (name, price) => {
         throw error;
     }
 };
+
+export const addACustomer = async (name, phone) => {
+    try {
+        if (!name || !phone) {
+            throw new Error("Please input a name and a phone");
+        }
+        const response = await api.post('/customers', { name, phone });
+        console.log(response);
+        return response;
+    } catch (error) {
+        console.error(error.message);
+        throw error;
+    }
+}
+
 
 export const updateService = async (id, name, price) => {
     try {
@@ -152,5 +196,9 @@ export default {
     updateService,
     deleteService,
     getToken,
-    DEFAULT_ACCOUNT
+    DEFAULT_ACCOUNT,
+    addACustomer,
+    getATransaction,
+    getAllCustomer,
+    getAllTransaction
 }
